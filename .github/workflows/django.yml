@@ -35,6 +35,6 @@ jobs:
         working-directory: server/weather_project
       - name: Coverage report
         run: |
-          working-directory: server/weather_project
           coverage run manage.py test
           coverage report
+        working-directory: server/weather_project
