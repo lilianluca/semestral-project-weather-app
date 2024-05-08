@@ -24,14 +24,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-        working-directory: server/weather_project
+        working-directory: server
       - name: Run Tests
         run: |
           python manage.py test
         working-directory: server/weather_project
       - name: Linting with Pylint
         run : |
-          pylint --load-plugins pylint_django --django-settings-module=weather_project.settings *
+          pylint .
         working-directory: server/weather_project
       - name: Coverage report
         run: |
