@@ -28,4 +28,13 @@ jobs:
       - name: Run Tests
         run: |
           python manage.py test
-        working-directory: server # Adjust the directory if needed
+        working-directory: server/weather_project
+      - name: Linting with Pylint
+        run : |
+          pylint --load-plugins pylint_django --django-settings-module=weather_project.settings *
+        working-directory: server/weather_project
+      - name: Coverage report
+        run: |
+          coverage run manage.py test
+          coverage report
+          working-directory: server/weather_project
