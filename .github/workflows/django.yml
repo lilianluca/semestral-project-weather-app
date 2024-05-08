@@ -31,7 +31,7 @@ jobs:
         working-directory: server/weather_project
       - name: Linting with Pylint
         run : |
-          pylint .
+          pylint *
         working-directory: server/weather_project
       - name: Coverage report
         run: |
