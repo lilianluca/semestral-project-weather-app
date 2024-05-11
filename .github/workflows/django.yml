@@ -103,4 +103,4 @@ jobs:
         run: |
           docker-compose build
           docker-compose push
-        working-directory: ./docker-compose.yml
+        working-directory: .
