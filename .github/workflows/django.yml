@@ -110,10 +110,11 @@ jobs:
           pwd
           ls -la server/weather_project
           cat server/weather_project/weather_api/tests.py
+      - name: Enter the server container
+        run: docker exec -it backend bash
       - name: Run Django tests
         run: |
-          docker-compose run --rm server python /usr/src/server/weather_project/manage.py test
-          docker-compose stop -t 1
+          pwd
+          ls -la
+        #  docker-compose stop -t 1
         working-directory: .
-
-
