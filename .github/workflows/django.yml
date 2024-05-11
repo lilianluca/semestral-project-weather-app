@@ -104,17 +104,16 @@ jobs:
           docker-compose rm -f
           docker-compose pull
           docker-compose up --build -d
-        #         docker-compose stop -t 1
         working-directory: .
       - name: Run pwd
         run: |
           pwd
           ls -la server/weather_project
-          docker exec -it backend python /usr/src/server/weather_project/manage.py test
           cat server/weather_project/weather_api/tests.py
       - name: Run Django tests
         run: |
-          docker-compose run --rm server python server/weather_project/manage.py test
+          docker-compose run --rm server python /usr/src/server/weather_project/manage.py test
+          docker-compose stop -t 1
         working-directory: .
 
 
