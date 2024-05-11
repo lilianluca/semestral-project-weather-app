@@ -113,7 +113,7 @@ jobs:
           cat server/weather_project/weather_api/tests.py
       - name: Run Django tests
         run: |
-          docker-compose run backend python server/weather_project/weather_api/manage.py test
+          docker-compose run --rm server python server/weather_project/manage.py test
         working-directory: .
 
 
