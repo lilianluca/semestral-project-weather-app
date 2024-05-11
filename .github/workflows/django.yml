@@ -105,15 +105,11 @@ jobs:
           docker-compose pull
           docker-compose up --build -d
         working-directory: .
-      - name: Run pwd
-        run: |
-          pwd
-          ls -la server/weather_project
-          cat server/weather_project/weather_api/tests.py
       - name: Enter the server service
         run: |
           docker-compose run server bash
           pwd
+          ls -la
       - name: Run Django tests
         run: |
           pwd
