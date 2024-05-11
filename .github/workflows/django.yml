@@ -104,10 +104,10 @@ jobs:
           docker-compose rm -f
           docker-compose pull
           docker-compose up --build -d
+          pwd
+          ls -l
         working-directory: .
-      - name: Enter the server service
-        run: |
-          docker-compose run server pwd
-          docker-compose run server ls -la weather_project
-          docker-compose run server python weather_project/manage.py test
-        working-directory: .
+      - name: Run Django tests
+        uses: UKnowWhoIm/django-test-action@v0.6
+        with:
+          settings-dir-path: 'server/weather_project'
