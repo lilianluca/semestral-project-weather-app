@@ -108,11 +108,5 @@ jobs:
       - name: Enter the server service
         run: |
           docker-compose run server bash
-          pwd
-          ls -la
-      - name: Run Django tests
-        run: |
-          pwd
-          ls -la
-        #  docker-compose stop -t 1
+          python server/weather_project/manage.py test
         working-directory: .
