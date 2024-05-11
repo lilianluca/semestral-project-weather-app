@@ -1,3 +1,7 @@
+"""
+Validations for user authentication
+"""
+
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 
@@ -5,6 +9,9 @@ UserModel = get_user_model()
 
 
 def custom_validation(data):
+    """
+    Custom validation
+    """
     email = data["email"].strip()
     username = data["username"].strip()
     password = data["password"].strip()
@@ -21,6 +28,9 @@ def custom_validation(data):
 
 
 def validate_email(data):
+    """
+    Validation for email
+    """
     email = data["email"].strip()
     if not email:
         raise ValidationError("an email is needed")
@@ -28,6 +38,9 @@ def validate_email(data):
 
 
 def validate_username(data):
+    """
+    Validation for username
+    """
     username = data["username"].strip()
     if not username:
         raise ValidationError("choose another username")
@@ -35,6 +48,9 @@ def validate_username(data):
 
 
 def validate_password(data):
+    """
+    Validation for password
+    """
     password = data["password"].strip()
     if not password:
         raise ValidationError("a password is needed")

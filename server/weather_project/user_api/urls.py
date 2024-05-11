@@ -1,3 +1,7 @@
+"""
+Defined urls for user api app
+"""
+
 from django.urls import path
 from . import views
 

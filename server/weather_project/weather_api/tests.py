@@ -2,7 +2,7 @@
 Contains unit tests for the Weather API App.
 """
 
-import unittest
+# import unittest
 
 # from django.test import TestCase
 
