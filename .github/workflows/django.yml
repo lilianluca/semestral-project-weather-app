@@ -101,10 +101,15 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Build and push
         run: |
-          docker-compose build
-          docker-compose push
+          docker-compose rm -f
+          docker-compose pull
+          docker-compose up --build -d
+        #         docker-compose stop -t 1
+        working-directory: .
+      - name: Display contents of tests.py
+        run: cat weather_project/weather_api/tests.py
         working-directory: .
       - name: Run Django tests
         run: |
-          docker-compose run server python weather_project/manage.py test -v 2
+          docker-compose run server python weather_project/manage.py test
         working-directory: .
