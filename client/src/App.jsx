@@ -1,33 +1,84 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import CustomNavbar from './components/CustomNavbar';
+import RegistrationForm from './components/RegistrationForm';
+import LoginForm from './components/LoginForm';
+import Home from './components/Home';
+import NoPage from './components/NoPage';
+import { Route, Routes } from 'react-router-dom';
 
-function App() {
-  const [count, setCount] = useState(0);
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
+const client = axios.create({
+  baseURL: 'http://127.0.0.1:8000',
+});
+
+const App = () => {
+  const [currentUser, setCurrentUser] = useState();
+  const [registrationToggle, setRegistrationToggle] = useState(false);
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    client
+      .get('/api/user')
+      .then(function (res) {
+        setCurrentUser(true);
+      })
+      .catch(function (error) {
+        setCurrentUser(false);
+      });
+  }, []);
 
   return (
     <>
-      <div>
-        <a href='https://vitejs.dev' target='_blank'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://react.dev' target='_blank'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>Helloooooo</p>
-      </div>
-      <p className='read-the-docs'>
-        Click on the Vite and React logos to learn more
-      </p>
+      <CustomNavbar
+        client={client}
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+      />
+      <Routes>
+        <Route path='/' element={<Home currentUser={currentUser} />} />
+        <Route
+          path='/register'
+          element={
+            <RegistrationForm
+              client={client}
+              setCurrentUser={setCurrentUser}
+              email={email}
+              setEmail={setEmail}
+              username={username}
+              setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+            />
+          }
+        />
+        <Route
+          path='/login'
+          element={
+            <LoginForm
+              client={client}
+              setCurrentUser={setCurrentUser}
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+            />
+          }
+        />
+      </Routes>
     </>
   );
-}
+};
 
 export default App;

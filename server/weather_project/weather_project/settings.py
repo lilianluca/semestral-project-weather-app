@@ -30,6 +30,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost",
+#     "http://127.0.0.1",
+#     "http://0.0.0.0",
+# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Example frontend URL
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
 
 # Application definition
 
@@ -40,6 +51,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "corsheaders",
+    "user_api.apps.UserApiConfig",
 ]
 
 MIDDLEWARE = [
@@ -50,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "weather_project.urls"
@@ -86,6 +101,16 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+
+## User model
+AUTH_USER_MODEL = "user_api.AppUser"
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
