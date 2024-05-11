@@ -107,6 +107,5 @@ jobs:
         working-directory: .
       - name: Enter the server service
         run: |
-          docker-compose run server bash
-          python server/weather_project/manage.py test
+          docker-compose run server server/weather_project/manage.py test
         working-directory: .
