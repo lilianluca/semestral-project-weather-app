@@ -110,8 +110,10 @@ jobs:
           pwd
           ls -la server/weather_project
           cat server/weather_project/weather_api/tests.py
-      - name: Enter the server container
-        run: docker exec -it backend bash
+      - name: Enter the server service
+        run: |
+          docker-compose run server bash
+          pwd
       - name: Run Django tests
         run: |
           pwd
