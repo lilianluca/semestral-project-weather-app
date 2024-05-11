@@ -106,10 +106,14 @@ jobs:
           docker-compose up --build -d
         #         docker-compose stop -t 1
         working-directory: .
-      - name: Display contents of tests.py
-        run: cat weather_project/weather_api/tests.py
-        working-directory: .
+      - name: Run pwd
+        run: |
+          pwd
       - name: Run Django tests
         run: |
           docker-compose run server python weather_project/manage.py test
         working-directory: .
+
+      # - name: Display contents of tests.py
+      #   run: cat /usr/src/server/weather_project/weather_api/tests.py
+      #   working-directory: .
