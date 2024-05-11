@@ -109,7 +109,7 @@ jobs:
       - name: Run pwd
         run: |
           pwd
-          ls -la
+          ls -la server/weather_project
           cat server/weather_project/weather_api/tests.py
       - name: Run Django tests
         run: |
