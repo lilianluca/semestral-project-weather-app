@@ -110,6 +110,7 @@ jobs:
         run: |
           pwd
           ls -la server/weather_project
+          python server/weather_project/manage.py test
           cat server/weather_project/weather_api/tests.py
       - name: Run Django tests
         run: |
