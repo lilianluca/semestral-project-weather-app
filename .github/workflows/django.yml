@@ -106,5 +106,5 @@ jobs:
         working-directory: .
       - name: Run Django tests
         run: |
-          docker-compose run server python weather_project/manage.py test
+          docker-compose run server python /usr/src/server/weather_project/manage.py test
         working-directory: .
