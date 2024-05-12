@@ -1,9 +1,10 @@
 import React from 'react';
+import CurrentWeather from './CurrentWeather';
 
-const Home = ({ currentUser }) => {
+const Home = ({ client, currentUser }) => {
   return (
     <div>
-      <h1>Home</h1>
+      <CurrentWeather client={client} />
       {currentUser && (
         <div className='center'>
           <h2>You're logged in!</h2>
