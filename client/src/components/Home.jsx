@@ -7,7 +7,7 @@ const Home = ({ client, currentUser }) => {
       <CurrentWeather client={client} />
       {currentUser && (
         <div className='center'>
-          <h2>You're logged in!</h2>
+          <h2>You are logged in!</h2>
         </div>
       )}
     </div>
