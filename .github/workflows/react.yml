@@ -1,0 +1,39 @@
+name: Testing react
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.11.1]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: 'npm'
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install Dependencies
+        working-directory: ./client
+        run: npm ci
+
+      - name: Build Application
+        working-directory: ./client
+        run: npm run build
+
+      - name: Coverage
+        working-directory: ./client
+        run: npm run coverage
