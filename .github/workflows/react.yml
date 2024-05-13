@@ -34,10 +34,6 @@ jobs:
         working-directory: ./client
         run: npm run build
 
-      - name: Run tests
-        working-directory: ./client
-        run: npm run test
-
       - name: Coverage
         working-directory: ./client
         run: npm run coverage

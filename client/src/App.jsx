@@ -1,4 +1,4 @@
-//import './App.css';
+import './App.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -41,10 +41,7 @@ const App = () => {
         setCurrentUser={setCurrentUser}
       />
       <Routes>
-        <Route
-          path='/'
-          element={<Home client={client} currentUser={currentUser} />}
-        />
+        <Route path='/' element={<Home client={client} currentUser={currentUser} />} />
         <Route
           path='/register'
           element={
