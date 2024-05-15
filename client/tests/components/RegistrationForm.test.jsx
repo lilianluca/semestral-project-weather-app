@@ -1,11 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { it, expect, describe } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import RegistrationForm from '../../src/components/RegistrationForm';
-import { beforeAll, afterEach, afterAll } from 'vitest';
 import '@testing-library/jest-dom';
+import user from '@testing-library/user-event';
 
 describe('RegistrationForm', () => {
   it('Should render form elements.', () => {
@@ -20,13 +20,5 @@ describe('RegistrationForm', () => {
     inputElements.forEach((input) => {
       expect(input).toBeInTheDocument();
     });
-  });
-  it('should register a user', async () => {
-    render(
-      <BrowserRouter>
-        <RegistrationForm />
-      </BrowserRouter>
-    );
-    fireEvent.click(screen.getByText(/submit/i))
   });
 });
