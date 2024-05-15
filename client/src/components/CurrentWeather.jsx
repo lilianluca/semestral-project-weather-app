@@ -50,8 +50,9 @@ const CurrentWeather = ({ client }) => {
           }
         >
           <Form.Group className='mb-3'>
-            <Form.Label>City</Form.Label>
+            <Form.Label htmlFor='city'>City</Form.Label>
             <Form.Control
+              id='city'
               type='text'
               placeholder='Enter city'
               value={city}
