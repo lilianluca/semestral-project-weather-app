@@ -1,6 +1,6 @@
 import React from 'react';
 import { it, expect, describe, vi } from 'vitest';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import axios from 'axios';
 import '@testing-library/jest-dom/vitest';
 import CustomNavbar from '../../src/components/CustomNavbar';
