@@ -4,13 +4,8 @@ import { it, expect, describe } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import RegistrationForm from '../../src/components/RegistrationForm';
-import { server } from '../mocks/server';
 import { beforeAll, afterEach, afterAll } from 'vitest';
 import '@testing-library/jest-dom';
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
 
 describe('RegistrationForm', () => {
   it('Should render form elements.', () => {
