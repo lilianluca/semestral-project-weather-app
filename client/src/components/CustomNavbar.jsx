@@ -3,16 +3,10 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const submitLogout = (e, client, setCurrentUser) => {
-  e.preventDefault();
-  client.post('/api/logout', { withCredentials: true }).then(function (res) {
-    setCurrentUser(false);
-  });
-};
-
-const CustomNavbar = ({ client, currentUser, setCurrentUser }) => {
+const CustomNavbar = ({ isAuthorized }) => {
+  const navigate = useNavigate();
   return (
     <Navbar expand='lg' bg='dark' variant='dark'>
       <Container>
@@ -22,9 +16,14 @@ const CustomNavbar = ({ client, currentUser, setCurrentUser }) => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav' className='justify-content-end'>
           <Nav className='gap-1 d-flex align-items-center justify-content-center'>
-            {currentUser ? (
+            {isAuthorized ? (
               <Navbar.Text>
-                <form onSubmit={(e) => submitLogout(e, client, setCurrentUser)}>
+                <form
+                  onSubmit={() => {
+                    localStorage.clear();
+                    navigate('/');
+                  }}
+                >
                   <Button type='submit' variant='light'>
                     Log out
                   </Button>

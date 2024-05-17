@@ -1,13 +1,9 @@
-"""
-Defined urls for user api app
-"""
-
 from django.urls import path
-from . import views
+from user_api.views import CreateUserView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-    path("register", views.UserRegister.as_view(), name="register"),
-    path("login", views.UserLogin.as_view(), name="login"),
-    path("logout", views.UserLogout.as_view(), name="logout"),
-    path("user", views.UserView.as_view(), name="user"),
+    path("user/register/", CreateUserView.as_view(), name="register"),
+    path("token/", TokenObtainPairView.as_view(), name="get_token"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="refresh"),
 ]
