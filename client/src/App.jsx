@@ -1,77 +1,41 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import HistoricalData from './pages/HistoricalData';
+import NotFound from './pages/NotFound';
+import ProtectedRoute from './components/ProtectedRoute';
+import Home from './pages/Home';
+import { useState } from 'react';
 import CustomNavbar from './components/CustomNavbar';
-import RegistrationForm from './components/RegistrationForm';
-import LoginForm from './components/LoginForm';
-import Home from './components/Home';
-import { Route, Routes } from 'react-router-dom';
+import Logout from './components/Logout';
+import RegisterAndLogout from './components/RegisterAndLogout'
 
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.withCredentials = true;
-
-const client = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
-});
-
-const App = () => {
-  const [currentUser, setCurrentUser] = useState();
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    client
-      .get('/api/user')
-      .then(function (res) {
-        setCurrentUser(true);
-      })
-      .catch(function (error) {
-        setCurrentUser(false);
-      });
-  }, []);
+function App() {
+  const [isAuthorized, setIsAuthorized] = useState(null);
 
   return (
-    <>
-      <CustomNavbar
-        client={client}
-        currentUser={currentUser}
-        setCurrentUser={setCurrentUser}
-      />
+    <BrowserRouter>
+      <CustomNavbar isAuthorized={isAuthorized} />
       <Routes>
-        <Route path='/' element={<Home client={client} currentUser={currentUser} />} />
+        <Route path='/' element={<Home />} />
         <Route
-          path='/register'
+          path='/history'
           element={
-            <RegistrationForm
-              client={client}
-              setCurrentUser={setCurrentUser}
-              email={email}
-              setEmail={setEmail}
-              username={username}
-              setUsername={setUsername}
-              password={password}
-              setPassword={setPassword}
-            />
+            <ProtectedRoute
+              isAuthorized={isAuthorized}
+              setIsAuthorized={setIsAuthorized}
+            >
+              <HistoricalData />
+            </ProtectedRoute>
           }
         />
-        <Route
-          path='/login'
-          element={
-            <LoginForm
-              client={client}
-              setCurrentUser={setCurrentUser}
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-            />
-          }
-        />
+        <Route path='/login' element={<Login />} />
+        <Route path='/logout' element={<Logout />} />
+        <Route path='/register' element={<RegisterAndLogout />} />
+        <Route path='*' element={<NotFound />}></Route>
       </Routes>
-    </>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;

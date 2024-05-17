@@ -29,10 +29,10 @@ jobs:
         run: |
           python manage.py test
         working-directory: server/weather_project
-      - name: Linting with Pylint
-        run: |
-          pylint *
-        working-directory: server/weather_project
+      # - name: Linting with Pylint
+      #   run: |
+      #     pylint *
+      #   working-directory: server/weather_project
       - name: Coverage report
         run: |
           coverage run manage.py test

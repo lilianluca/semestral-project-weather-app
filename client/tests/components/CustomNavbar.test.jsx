@@ -1,30 +1,38 @@
 import React from 'react';
-import { it, expect, describe, vi } from 'vitest';
-import { render, fireEvent, screen } from '@testing-library/react';
-import axios from 'axios';
-import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom';
+import { it, expect, describe } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import CustomNavbar from '../../src/components/CustomNavbar';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-describe('CustomNavbar', () => {
-  it('Should render ', () => {
-    const { getByText } = render(
-      <Router>
-        {' '}
-        {/* Wrap the component with Router */}
-        <CustomNavbar currentUser={false} />
-      </Router>
+describe('group', () => {
+  it('should', () => {
+    render(
+      <BrowserRouter>
+        <CustomNavbar isAuthorized={false} />
+      </BrowserRouter>
     );
-    expect(getByText('Register')).toBeInTheDocument();
-    expect(getByText('Login')).toBeInTheDocument();
+    screen.debug();
+    const registerLink = screen.getByText('Register');
+    expect(registerLink).toBeInTheDocument();
+    const loginLink = screen.getByText('Login');
+    expect(loginLink).toBeInTheDocument();
   });
 
-  it('should render logout button when user is logged in', () => {
-    const { getByText } = render(
-      <Router>
-        <CustomNavbar currentUser={true} />
-      </Router>
+  it('should', () => {
+    render(
+      <BrowserRouter>
+        <CustomNavbar isAuthorized={true} />
+      </BrowserRouter>
     );
-    expect(getByText('Log out')).toBeInTheDocument();
+    screen.debug();
+    const logoutBtn = screen.getByText('Log out');
+    expect(logoutBtn).toBeInTheDocument();
+    localStorage.setItem('token', JSON.stringify('token'));
+    let localStorageFirstItem = localStorage.key(0);
+    expect(localStorageFirstItem).toBe('token');
+    fireEvent.click(logoutBtn);
+    localStorageFirstItem = localStorage.key(0);
+    expect(localStorageFirstItem).toBeNull();
   });
 });
