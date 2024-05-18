@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { ACCESS_TOKEN } from './constants';
 
-const apiUrl =
-  '/choreo-apis/djangorestapi/serverweatherproject/rest-api-be2/v1';
+const apiUrl = 'https://weather-rest-api-878f.onrender.com/api';
 // const apiUrl = 'api/';
 
 const api = axios.create({
