@@ -7,7 +7,6 @@ import App from '../../src/App';
 describe('group', () => {
   it('should', () => {
     render(<App />);
-    screen.debug();
     const weatherAppLink = screen.getByText('Weather App');
     expect(weatherAppLink).toBeInTheDocument();
   });

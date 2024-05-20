@@ -12,7 +12,6 @@ describe('group', () => {
         <RegisterAndLogout />
       </BrowserRouter>
     );
-    screen.debug();
     const registerHeading = screen.getByText('Register'); 
     expect(registerHeading).toBeInTheDocument();
   });

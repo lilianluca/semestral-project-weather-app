@@ -17,18 +17,28 @@ const CustomNavbar = ({ isAuthorized }) => {
         <Navbar.Collapse id='basic-navbar-nav' className='justify-content-end'>
           <Nav className='gap-1 d-flex align-items-center justify-content-center'>
             {isAuthorized ? (
-              <Navbar.Text>
-                <form
-                  onSubmit={() => {
-                    localStorage.clear();
-                    navigate('/');
-                  }}
+              <div className='d-flex gap-2 align-items-center'>
+                <Nav.Link
+                  as={Link}
+                  to='/history'
+                  className='link-light'
+                  variant='light'
                 >
-                  <Button type='submit' variant='light'>
-                    Log out
-                  </Button>
-                </form>
-              </Navbar.Text>
+                  Forecast and history
+                </Nav.Link>
+                <Navbar.Text>
+                  <form
+                    onSubmit={() => {
+                      localStorage.clear();
+                      navigate('/');
+                    }}
+                  >
+                    <Button type='submit' variant='light'>
+                      Log out
+                    </Button>
+                  </form>
+                </Navbar.Text>
+              </div>
             ) : (
               <>
                 <Nav.Link

@@ -25,7 +25,6 @@ describe('group', () => {
         contextMenuRef={contextMenuRef}
       />
     );
-    screen.debug();
     expect(screen.getByText('Delete')).toBeInTheDocument();
   });
 });

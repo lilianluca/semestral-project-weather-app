@@ -23,7 +23,6 @@ describe('group', () => {
         style={{ width: '100%' }}
       />
     );
-    screen.debug();
     const locationNameHeading = screen.getByText('Liberec');
     expect(locationNameHeading).toBeInTheDocument();
   });

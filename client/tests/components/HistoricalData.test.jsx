@@ -7,6 +7,5 @@ import HistoricalData from '../../src/pages/HistoricalData';
 describe('group', () => {
   it('should', () => {
     render(<HistoricalData />);
-    screen.debug();
   });
 });

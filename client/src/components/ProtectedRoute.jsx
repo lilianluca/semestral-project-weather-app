@@ -23,7 +23,6 @@ function ProtectedRoute({ children, isAuthorized, setIsAuthorized }) {
         setIsAuthorized(false);
       }
     } catch (error) {
-      console.log(error);
       setIsAuthorized(false);
     }
   };
