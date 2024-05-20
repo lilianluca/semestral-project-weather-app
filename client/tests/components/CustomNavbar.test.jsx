@@ -12,7 +12,6 @@ describe('group', () => {
         <CustomNavbar isAuthorized={false} />
       </BrowserRouter>
     );
-    screen.debug();
     const registerLink = screen.getByText('Register');
     expect(registerLink).toBeInTheDocument();
     const loginLink = screen.getByText('Login');
@@ -25,7 +24,6 @@ describe('group', () => {
         <CustomNavbar isAuthorized={true} />
       </BrowserRouter>
     );
-    screen.debug();
     const logoutBtn = screen.getByText('Log out');
     expect(logoutBtn).toBeInTheDocument();
     localStorage.setItem('token', JSON.stringify('token'));

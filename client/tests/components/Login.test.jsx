@@ -12,7 +12,6 @@ describe('group', () => {
         <Login />
       </BrowserRouter>
     );
-    screen.debug();
     expect(screen.getByText('Login')).toBeInTheDocument();
   });
 });

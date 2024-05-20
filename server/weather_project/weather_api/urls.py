@@ -26,4 +26,5 @@ urlpatterns = [
         views.FavoriteCityDelete.as_view(),
         name="favorite-city-delete",
     ),
+    path("forecast/<str:city>/", views.Forecast.as_view(), name="forecast"),
 ]

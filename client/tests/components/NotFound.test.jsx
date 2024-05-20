@@ -7,7 +7,6 @@ import NotFound from '../../src/pages/NotFound';
 describe('group', () => {
   it('should', () => {
     render(<NotFound />);
-    screen.debug();
     const notFoundHeading = screen.getByText('404 Not Found')
     expect(notFoundHeading).toBeInTheDocument()
   });

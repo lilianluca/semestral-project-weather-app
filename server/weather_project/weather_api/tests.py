@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from .models import FavoriteCity
 from rest_framework_simplejwt.tokens import AccessToken
 from .serializers import FavoriteCitySerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 import requests_mock
 
 
@@ -215,3 +216,64 @@ class FavoriteCityDeleteTests(APITestCase):
         # Attempt to delete the favorite city of another user
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class ForecastTests(APITestCase):
+
+    def setUp(self):
+        # Create a user for authentication
+        self.user = User.objects.create_user(
+            username="testuser", password="testpassword"
+        )
+
+        # Generate JWT token for the user
+        refresh = RefreshToken.for_user(self.user)
+        self.token = str(refresh.access_token)
+
+        # Set up the client with the JWT token
+        self.client = APIClient()
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.token}")
+
+    @requests_mock.Mocker()
+    def test_get_forecast_success(self, mocker):
+        city = "London"
+        api_key = "58c333f28d724673a9694938241205"
+        url = f"http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={city}&days=3&aqi=no&alerts=no"
+
+        mock_response = {
+            "location": {"name": "London", "country": "UK"},
+            "forecast": {
+                "forecastday": [
+                    {
+                        "date": "2024-05-20",
+                        "day": {
+                            "maxtemp_c": 25.0,
+                            "mintemp_c": 15.0,
+                            "daily_chance_of_rain": "50",
+                            "condition": {
+                                "icon": "test-icon-url",
+                                "text": "Partly cloudy",
+                            },
+                        },
+                    }
+                ]
+            },
+        }
+
+        mocker.get(url, json=mock_response, status_code=200)
+
+        response = self.client.get(reverse("forecast", args=[city]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json(), mock_response)
+
+    @requests_mock.Mocker()
+    def test_get_forecast_failure(self, mocker):
+        city = "InvalidCity"
+        api_key = "58c333f28d724673a9694938241205"
+        url = f"http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={city}&days=3&aqi=no&alerts=no"
+
+        mocker.get(url, status_code=404, json={"error": "No matching location found."})
+
+        response = self.client.get(reverse("forecast", args=[city]))
+        self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
+        self.assertIn("error", response.json())

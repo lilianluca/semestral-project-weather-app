@@ -6,6 +6,7 @@ function FavoriteCity({
   handleContextMenu,
   getCurrentWeatherData,
   getHistoricalWeatherData,
+  getForecastData,
   historyDate,
 }) {
   return (
@@ -14,6 +15,7 @@ function FavoriteCity({
         e.preventDefault();
         getCurrentWeatherData(favoriteCity.city_name);
         getHistoricalWeatherData(favoriteCity.city_name, historyDate);
+        getForecastData(favoriteCity.city_name);
       }}
     >
       <Button

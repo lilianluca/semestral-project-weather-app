@@ -12,7 +12,6 @@ describe('group', () => {
         <CustomForm method='login' route='route' />
       </BrowserRouter>
     );
-    screen.debug();
     const customForm = screen.getByTestId('custom-form-username');
     expect(customForm).toBeInTheDocument();
 

@@ -78,3 +78,22 @@ class FavoriteCityDelete(generics.DestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return FavoriteCity.objects.filter(user=user)
+
+
+class Forecast(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, city):
+        """
+        GET endpoint for getting current weather data
+        """
+        api_key = "58c333f28d724673a9694938241205"
+        days = 3
+        url = f"http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={city}&days={days}&aqi=no&alerts=no"
+        try:
+            response = requests.get(url, timeout=15)
+            response.raise_for_status()
+            data = response.json()
+            return Response(data)
+        except requests.exceptions.RequestException as e:
+            return Response({"error": str(e)}, status=500)

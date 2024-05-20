@@ -21,7 +21,6 @@ const ContextMenu = ({
         const handleClick = (e) => {
           e.stopPropagation();
           button.onClick(e, rightClickItem);
-          console.log(rightClickItem)
         };
 
         return (

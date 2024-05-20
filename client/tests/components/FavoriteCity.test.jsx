@@ -9,6 +9,7 @@ describe('group', () => {
     const handleContextMenu = vi.fn();
     const getCurrentWeatherData = vi.fn();
     const getHistoricalWeatherData = vi.fn();
+    const getForecastData = vi.fn();
     const historyDate = '2024-05-17';
     render(
       <FavoriteCity
@@ -16,6 +17,7 @@ describe('group', () => {
         handleContextMenu={handleContextMenu}
         getCurrentWeatherData={getCurrentWeatherData}
         getHistoricalWeatherData={getHistoricalWeatherData}
+        getForecastData={getForecastData}
         historyDate={historyDate}
       />
     );

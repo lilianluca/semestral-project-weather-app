@@ -7,6 +7,7 @@ import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import CurrentWeather from '../components/CurrentWeather';
 import HistoricalWheater from '../components/HistoricalWheater';
+import Forecast from '../components/Forecast';
 
 const currentWeatherStyles = { width: '75%' };
 
@@ -44,6 +45,17 @@ function HistoricalData() {
   const [historicalWeatherData, setHistoricalWeatherData] = useState(null);
   const [tabIndex, setTabIndex] = useState(0);
   const [historyDate, setHistoryDate] = useState(formatDate(new Date()));
+  const [forecastData, setForecastData] = useState(null);
+
+  const getForecastData = (city) => {
+    api
+      .get(`/weather-api/v1/forecast/${city}`)
+      .then((res) => res.data)
+      .then((data) => {
+        setForecastData(data);
+      })
+      .catch((err) => alert(err));
+  };
 
   const getCurrentWeatherData = (city) => {
     api
@@ -67,6 +79,7 @@ function HistoricalData() {
 
   useEffect(() => {
     getCurrentWeatherData('Liberec');
+    getForecastData('Liberec');
     getHistoricalWeatherData('Liberec', historyDate);
     getFavoriteCities();
   }, []);
@@ -101,7 +114,6 @@ function HistoricalData() {
       .then((res) => res.data)
       .then((data) => {
         setFavoriteCities(data);
-        console.log(data);
       })
       .catch((err) => alert(err));
   };
@@ -164,6 +176,7 @@ function HistoricalData() {
                   handleContextMenu={(e) => handleContextMenu(e, favoriteCity)}
                   getCurrentWeatherData={getCurrentWeatherData}
                   getHistoricalWeatherData={getHistoricalWeatherData}
+                  getForecastData={getForecastData}
                   historyDate={historyDate}
                   favoriteCity={favoriteCity}
                   key={favoriteCity.id}
@@ -213,21 +226,29 @@ function HistoricalData() {
               onClick={() => setTabIndex(0)}
               variant={`${tabIndex === 0 ? 'info' : 'outline-info'}`}
             >
-              Current weather
+              Current
             </Button>
             <Button
               onClick={() => setTabIndex(1)}
               variant={`${tabIndex === 1 ? 'info' : 'outline-info'}`}
             >
-              Historical weather
+              Current
+            </Button>
+            <Button
+              onClick={() => setTabIndex(2)}
+              variant={`${tabIndex === 2 ? 'info' : 'outline-info'}`}
+            >
+              Historical
             </Button>
           </div>
-          {tabIndex === 0 ? (
+          {tabIndex === 0 && (
             <CurrentWeather
               currentWeatherData={currentWeatherData}
               style={currentWeatherStyles}
             />
-          ) : (
+          )}
+          {tabIndex === 1 && <Forecast data={forecastData} />}
+          {tabIndex === 2 && (
             <div className='mt-3 w-100 d-flex flex-column align-items-center'>
               <Form.Group className='mb-3'>
                 <Form.Control
