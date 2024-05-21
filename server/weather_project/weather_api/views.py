@@ -17,7 +17,7 @@ class CurrentWeather(APIView):
     Handling reqeusts for CurrentWeather view
     """
 
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = [permissions.AllowAny]
 
     def get(self, request, city):
         """

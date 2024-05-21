@@ -8,28 +8,12 @@ import { Button } from 'react-bootstrap';
 import CurrentWeather from '../components/CurrentWeather';
 import HistoricalWheater from '../components/HistoricalWheater';
 import Forecast from '../components/Forecast';
+import getMinDate from '../utils/functions/date/getMinDate';
+import formatDate from '../utils/functions/date/formatDate';
 
 const currentWeatherStyles = { width: '75%' };
 
-const getMinDate = () => {
-  let date = new Date();
-  date.setDate(date.getDate() - 7);
-  return date;
-};
-
-const formatDate = (date) => {
-  var d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-
-  return [year, month, day].join('-');
-};
-
-function HistoricalData() {
+const HistoricalData = () => {
   const [favoriteCities, setFavoriteCities] = useState([]);
   const [favoriteCityName, setFavoriteCityName] = useState('');
   const contextMenuRef = useRef(null);
@@ -269,6 +253,6 @@ function HistoricalData() {
       </div>
     </div>
   );
-}
+};
 
 export default HistoricalData;
