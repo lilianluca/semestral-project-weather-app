@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import getDayName from '../../src/utils/functions/getDayName';
+import getDayName from '../../../src/utils/functions/date/getDayName';
 
 describe('getDayName', () => {
   it('should return the correct day name for a valid date', () => {

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ForecastDay from './ForecastDay';
-import getDayName from '../utils/functions/getDayName';
+import getDayName from '../utils/functions/date/getDayName';
 
 const styles = { width: '75%' };
 
