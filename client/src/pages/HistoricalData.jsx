@@ -38,7 +38,7 @@ const HistoricalData = () => {
       .then((data) => {
         setForecastData(data);
       })
-      .catch((err) => alert(err));
+      .catch((err) => console.log(err));
   };
 
   const getCurrentWeatherData = (city) => {
@@ -48,7 +48,7 @@ const HistoricalData = () => {
       .then((data) => {
         setCurrentWeatherData(data);
       })
-      .catch((err) => alert(err));
+      .catch((err) => console.log(err));
   };
 
   const getHistoricalWeatherData = (city, historyDate) => {
@@ -58,7 +58,7 @@ const HistoricalData = () => {
       .then((data) => {
         setHistoricalWeatherData(data);
       })
-      .catch((err) => alert(err));
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -157,6 +157,7 @@ const HistoricalData = () => {
             ) : (
               favoriteCities.map((favoriteCity) => (
                 <FavoriteCity
+                  data-testid='favoriteCity'
                   handleContextMenu={(e) => handleContextMenu(e, favoriteCity)}
                   getCurrentWeatherData={getCurrentWeatherData}
                   getHistoricalWeatherData={getHistoricalWeatherData}
@@ -191,6 +192,7 @@ const HistoricalData = () => {
         >
           <Form.Group className='mb-3'>
             <Form.Control
+              data-testid='favoriteCityName'
               id='city'
               type='text'
               placeholder='Enter city'
@@ -216,7 +218,7 @@ const HistoricalData = () => {
               onClick={() => setTabIndex(1)}
               variant={`${tabIndex === 1 ? 'info' : 'outline-info'}`}
             >
-              Current
+              Forecast
             </Button>
             <Button
               onClick={() => setTabIndex(2)}

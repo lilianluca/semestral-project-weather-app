@@ -44,7 +44,7 @@ const Home = () => {
             onChange={(e) => setCity(e.target.value)}
           />
         </Form.Group>
-        <Button variant='primary' type='submit'>
+        <Button variant='primary' type='submit' data-testid="submitHomePage">
           Submit
         </Button>
       </Form>
